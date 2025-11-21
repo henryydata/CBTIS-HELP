@@ -1,0 +1,112 @@
+[
+  {
+    "model": "escuelas.Escuela",
+    "pk": 1,
+    "fields": {
+      "nombre": "CBTIS",
+      "plantel": "0001",
+      "telefono": "5554321001",
+      "direccion": "Av. de los Maestros 45, Col. Santo Tomás, Ciudad de México, CDMX",
+      "slug": "cbtis-1"
+    }
+  },
+  {
+    "model": "escuelas.Escuela",
+    "pk": 2,
+    "fields": {
+      "nombre": "CBTIS",
+      "plantel": "0009",
+      "telefono": "4422148901",
+      "direccion": "Av. Constituyentes 120, Col. Centro, Querétaro, Qro.",
+      "slug": "cbtis-9"
+    }
+  },
+  {
+    "model": "escuelas.Escuela",
+    "pk": 3,
+    "fields": {
+      "nombre": "CBTIS",
+      "plantel": "0145",
+      "telefono": "4422345654",
+      "direccion": "Blvd. Bernardo Quintana 601, Querétaro, Qro.",
+      "slug": "cbtis-145"
+    }
+  },
+  {
+    "model": "escuelas.Escuela",
+    "pk": 4,
+    "fields": {
+      "nombre": "CBTIS",
+      "plantel": "0198",
+      "telefono": "4171728890",
+      "direccion": "Blvd. Salvador Maldonado 505, Acámbaro, Gto.",
+      "slug": "cbtis-198"
+    }
+  },
+  {
+    "model": "escuelas.Escuela",
+    "pk": 5,
+    "fields": {
+      "nombre": "CBTIS",
+      "plantel": "0248",
+      "telefono": "4626234411",
+      "direccion": "Prol. Guerrero 80, Irapuato, Gto.",
+      "slug": "cbtis-248"
+    }
+  },
+  {
+    "model": "escuelas.Escuela",
+    "pk": 6,
+    "fields": {
+      "nombre": "CBTIS",
+      "plantel": "0174",
+      "telefono": "4616122250",
+      "direccion": "Av. 12 de Octubre 300, Celaya, Gto.",
+      "slug": "cbtis-174"
+    }
+  },
+  {
+    "model": "escuelas.Escuela",
+    "pk": 7,
+    "fields": {
+      "nombre": "CBTIS",
+      "plantel": "0065",
+      "telefono": "6144102200",
+      "direccion": "Av. Tecnológico 2900, Chihuahua, Chih.",
+      "slug": "cbtis-65"
+    }
+  },
+  {
+    "model": "escuelas.Escuela",
+    "pk": 8,
+    "fields": {
+      "nombre": "CBTIS",
+      "plantel": "037",
+      "telefono": "9988819040",
+      "direccion": "Av. Kabah s/n, Cancún, Q. Roo.",
+      "slug": "cbtis-37"
+    }
+  },
+  {
+    "model": "escuelas.Escuela",
+    "pk": 9,
+    "fields": {
+      "nombre": "CBTIS",
+      "plantel": "243",
+      "telefono": "9848734455",
+      "direccion": "Calle 30 Nte 155, Playa del Carmen, Q. Roo.",
+      "slug": "cbtis-243"
+    }
+  },
+  {
+    "model": "escuelas.Escuela",
+    "pk": 10,
+    "fields": {
+      "nombre": "CBTIS",
+      "plantel": "222",
+      "telefono": "6646249911",
+      "direccion": "Av. de los Maestros 4500, Tijuana, B.C.",
+      "slug": "cbtis-222"
+    }
+  }
+]

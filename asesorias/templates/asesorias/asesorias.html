@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load dict_utils %}
+{% block title %}Asesorías{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+  <h2 class="text-center mb-4">Asesorías disponibles</h2>
+
+  <div class="row g-4">
+    {% for asesoria in asesorias %}
+
+      {% with inscrito=inscripciones|dictget:asesoria.id %}
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card shadow border-0 h-100" style="border-radius:15px;"> 
+
+          <!-- Header -->
+          <div class="card-header text-white text-center" style="background:#56070c;">
+            <h5 class="mb-0">{{ asesoria.nombre }}</h5>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body" style="background-color:#fffafc;">
+            <p><strong>Fecha:</strong> {{ asesoria.fecha|date:"d/m/Y H:i" }}</p>
+            <p><strong>Maestro:</strong> {{ asesoria.maestro }}</p>
+            <p><strong>Asignatura:</strong> {{ asesoria.asignatura }}</p>
+
+            {% if asesoria.escuela %}
+              <p><strong>Escuela:</strong> {{ asesoria.escuela }}</p>
+            {% endif %}
+
+            <p><strong>Categoría:</strong> {{ asesoria.categoria }}</p>
+
+            <!-- Cupos -->
+            <p id="cupo-{{ asesoria.id }}">
+              <strong>Cupos restantes:</strong> {{ asesoria.cupos_restantes }}
+            </p>
+
+            <!-- Botón -->
+            <div class="text-center mt-3">
+              <button
+                id="btn-inscribir-{{ asesoria.id }}"
+                data-id="{{ asesoria.id }}"
+                class="btn {% if inscrito %}btn-danger{% else %}btn-primary{% endif %}"
+                {% if inscrito %}data-inscrito="1"{% else %}data-inscrito="0"{% endif %}
+              >
+                {% if inscrito %}
+                  Cancelar inscripción
+                {% else %}
+                  Inscribirme
+                {% endif %}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {% endwith %}
+    {% empty %}
+      <p class="text-center text-muted mt-5">No hay asesorías disponibles.</p>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- AJAX Toggle -->
+<script>
+document.querySelectorAll("[id^='btn-inscribir']").forEach(btn => {
+    btn.addEventListener("click", function () {
+
+        const asesoriaId = this.dataset.id;
+
+        fetch(`/asesorias/${asesoriaId}/toggle/`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            // Mostrar alerta de SweetAlert2
+            Swal.fire({
+                icon: data.estado === "inscrito" ? "success" : "info",
+                title: data.mensaje,
+                timer: 1500,
+                showConfirmButton: false
+            });
+
+            // Cambiar botón
+            if (data.estado === "inscrito") {
+                this.textContent = "Cancelar inscripción";
+                this.classList.remove("btn-primary");
+                this.classList.add("btn-danger");
+                this.dataset.inscrito = "1";
+            } else {
+                this.textContent = "Inscribirme";
+                this.classList.remove("btn-danger");
+                this.classList.add("btn-primary");
+                this.dataset.inscrito = "0";
+            }
+
+            // Actualizar cupos
+            document.getElementById(`cupo-${asesoriaId}`).innerHTML =
+                `<strong>Cupos restantes:</strong> ${data.cupos_restantes}`;
+        });
+    });
+});
+</script>
+
+{% endblock %}

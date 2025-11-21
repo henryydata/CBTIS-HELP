@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title%}{{ titulo }}{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+    <h3 class="text-center mb-4">Agregar Maestro</h3>
+    <div class="card">
+        <div class="card-body">
+            <form  action="" method="post">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="bg-[#FFC700] text-[#800000] p-3 rounded mb-6 text-center font-semibold">
+                        Error al guardar
+                    </div>
+                {% endif %}
+                {{ form }}
+
+                <div class="d-flex jusify-content-end">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a href="{% url 'listar_maestro' %}" class="btn btn-secondary">Regresar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

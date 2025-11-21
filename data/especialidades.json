@@ -1,0 +1,200 @@
+[
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 1,
+    "fields": {
+      "especialidad": "Informática y Computación",
+      "escuela": 1,
+      "comunidad": 10
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 2,
+    "fields": {
+      "especialidad": "Electrónica y Electricidad",
+      "escuela": 1,
+      "comunidad": 11
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 3,
+    "fields": {
+      "especialidad": "Electrónica y Electricidad",
+      "escuela": 2,
+      "comunidad": 11
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 4,
+    "fields": {
+      "especialidad": "Mecánica y Mantenimiento",
+      "escuela": 2,
+      "comunidad": 12
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 5,
+    "fields": {
+      "especialidad": "Mecánica y Mantenimiento",
+      "escuela": 3,
+      "comunidad": 12
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 6,
+    "fields": {
+      "especialidad": "Química y Procesos Industriales",
+      "escuela": 3,
+      "comunidad": 13
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 7,
+    "fields": {
+      "especialidad": "Química y Procesos Industriales",
+      "escuela": 4,
+      "comunidad": 13
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 8,
+    "fields": {
+      "especialidad": "Administración y Contabilidad",
+      "escuela": 4,
+      "comunidad": 14
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 9,
+    "fields": {
+      "especialidad": "Administración y Contabilidad",
+      "escuela": 5,
+      "comunidad": 14
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 10,
+    "fields": {
+      "especialidad": "Turismo y Hospitalidad",
+      "escuela": 5,
+      "comunidad": 15
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 11,
+    "fields": {
+      "especialidad": "Turismo y Hospitalidad",
+      "escuela": 6,
+      "comunidad": 15
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 12,
+    "fields": {
+      "especialidad": "Diseño y Comunicación",
+      "escuela": 6,
+      "comunidad": 16
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 13,
+    "fields": {
+      "especialidad": "Diseño y Comunicación",
+      "escuela": 7,
+      "comunidad": 16
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 14,
+    "fields": {
+      "especialidad": "Salud y Servicios Sociales",
+      "escuela": 7,
+      "comunidad": 17
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 15,
+    "fields": {
+      "especialidad": "Salud y Servicios Sociales",
+      "escuela": 8,
+      "comunidad": 17
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 16,
+    "fields": {
+      "especialidad": "Agronomía y Recursos Naturales",
+      "escuela": 8,
+      "comunidad": 18
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 17,
+    "fields": {
+      "especialidad": "Agronomía y Recursos Naturales",
+      "escuela": 9,
+      "comunidad": 18
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 18,
+    "fields": {
+      "especialidad": "Idiomas y Ciencias Sociales",
+      "escuela": 9,
+      "comunidad": 19
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 19,
+    "fields": {
+      "especialidad": "Idiomas y Ciencias Sociales",
+      "escuela": 10,
+      "comunidad": 19
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 20,
+    "fields": {
+      "especialidad": "Informática y Computación",
+      "escuela": 10,
+      "comunidad": 10
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 21,
+    "fields": {
+      "especialidad": "Informática y Computación",
+      "escuela": 14,
+      "comunidad": 10
+    }
+  },
+  {
+    "model": "especialidades.Especialidad",
+    "pk": 22,
+    "fields": {
+      "especialidad": "Electrónica y Electricidad",
+      "escuela": 14,
+      "comunidad": 11
+    }
+  }
+]

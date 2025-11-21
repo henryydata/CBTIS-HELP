@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white shadow-2xl rounded-3xl p-10 w-full max-w-md border-4 border-[#800000]">
+        <h3 class="text-3xl font-bold text-center text-[#800000] mb-8">Iniciar Sesión</h3>
+        <form id="forms-control" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {% if form.errors %}
+                <div class="bg-[#FFC700] text-[#800000] p-3 rounded mb-6 text-center font-semibold">
+                    Usuario o contraseña incorrectos
+                </div>
+            {% endif %}
+            <div class="mb-5 relative">
+                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M5.121 17.804A9 9 0 1112 21a9 9 0 01-6.879-3.196z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </span>
+                <input type="text" name="username" id="username" placeholder="Usuario"
+                       class="w-full pl-10 pr-4 py-2 border-2 border-[#800000] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FFC700] transition duration-200">
+            </div>
+            <div class="mb-6 relative">
+                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 11c0-.828.895-1.5 2-1.5s2 .672 2 1.5v3h-4v-3z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M5 11V8a7 7 0 1114 0v3"/>
+                    </svg>
+                </span>
+                <input type="password" name="password" id="password" placeholder="Contraseña"
+                       class="w-full pl-10 pr-4 py-2 border-2 border-[#800000] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FFC700] transition duration-200">
+            </div>
+            <button type="submit"
+                    class="w-full py-2 rounded-xl bg-[#800000] text-[#FFC700] font-semibold hover:bg-[#661111] hover:text-white transition duration-300 shadow-lg">
+                Ingresar
+            </button>
+        </form>
+
+        <div class="text-center mt-6">
+            <a href="#" class="text-[#800000] hover:text-[#FFC700] font-medium">¿Olvidaste tu contraseña?</a><br>
+            <p>No tienes cuenta? Crea una <a href="{% url 'registro_alumno' %}" id="crearCuenta">aqui</a></p>
+        </div>
+    </div>
+</div>
+<script> 
+    let forms = document.getElementById('forms-control');
+
+    forms.addEventListener('submit', function(event){
+        event.preventDefault();
+        let usuario=document.getElementById('username');
+        let contrasena=document.getElementById('password');
+
+        let cleanUser=usuario.value.trim();
+        let cleanPass=contrasena.value.trim();
+        if(cleanUser==='' || cleanPass===''){
+            Swal.fire({
+                title: 'Datos erroneos',
+                text: 'Los campos no pueden estar vacios',
+                icon: 'warning',
+                cancelButtonText:'Entendido'
+            })
+            return;
+        }else{
+            this.submit();
+        }
+    })
+</script>
+{% endblock %}

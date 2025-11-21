@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ titulo }}{% endblock %}
+{% block content %}
+<style>
+        body {
+            background: #f7f8fa;
+            font-family: 'Poppins', sans-serif;
+        }
+        .card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform .2s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .btn-custom {
+            background-color: #4B70E2;
+            color: white;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        .btn-custom:hover {
+            background-color: #3a58c8;
+        }
+        h2 {
+            color: #333;
+            font-weight: 600;
+        }
+    </style>
+<div class="container mt-4" style="max-width:600px;">
+    <div class="card shadow-sm p-3">
+        <h4 class="mb-3">Nuevo Post</h4>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+
+            <button type="submit" class="btn btn-primary w-100">Publicar</button>
+            <a href="{% url 'listar_publicacion' %}" class="btn btn-secondary w-100 mt-2">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

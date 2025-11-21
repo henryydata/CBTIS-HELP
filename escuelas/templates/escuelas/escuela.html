@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}{{ escuela.nombre }} - CBTis Help{% endblock %}
+{% block content %}
+
+<div class="container my-5">
+  <div class="card border-0 shadow-lg mb-5" style="border-radius: 15px; overflow:hidden;">
+    <div class="card-header text-white text-center" 
+         style="background: linear-gradient(135deg, #56070c, #7a0c18); font-size: 1.5rem;">
+      {{ escuela.nombre }} - Plantel {{ escuela.plantel }}
+    </div>
+    <div class="card-body bg-light">
+      <div class="row align-items-center">
+        <div class="col-md-8 mx-auto">
+          <p class="mb-2"><strong>Teléfono:</strong> {{ escuela.telefono }}</p>
+          <p class="mb-2"><strong>Dirección:</strong> {{ escuela.direccion }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row g-4">
+    {% for maestro in maestros %}
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card h-100 border-0 shadow-sm" style="border-radius: 12px;">
+        <div class="card-header text-white text-center fw-bold" 
+             style="background-color:#7a0c18; border-top-left-radius:12px; border-top-right-radius:12px;">
+          {{ maestro.nombre }} {{ maestro.apellido_paterno }} {{ maestro.apellido_materno }}
+        </div>
+        <div class="card-body bg-white text-center">
+          <p class="mb-2"><strong>Asignatura:</strong> {{ maestro.asignatura }}</p>
+          <p class="mb-3"><strong>Escuela:</strong> {{ maestro.escuela.nombre }}</p>
+
+          {% if maestro.user %}
+          <a href="#" 
+             class="btn text-white fw-semibold px-4 py-2" 
+             style="background-color:#56070c; border-radius:8px;">
+            Ver perfil
+          </a>
+          {% else %}
+          <button class="btn btn-outline-secondary px-4 py-2" disabled>Sin perfil registrado</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+      <p class="text-center text-muted mt-5">Aún no hay maestros registrados en esta escuela.</p>
+    {% endfor %}
+  </div>
+
+  <div class="text-center mt-5">
+    <a href="{% url 'escuelas' %}" class="btn btn-outline-danger fw-semibold px-4 py-2"
+       style="border-color:#7a0c18; color:#7a0c18; border-radius:8px;">
+      ← Volver a todas las escuelas
+    </a>
+  </div>
+
+</div>
+
+{% endblock %}

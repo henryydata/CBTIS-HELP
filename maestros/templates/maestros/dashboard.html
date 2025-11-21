@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+
+    <h2>Mis asesorías</h2>
+    <div class="row mt-4">
+
+    {% for a in asesorias %}
+        <div class="col-md-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5>{{ a.nombre }}</h5>
+                    <p><strong>Fecha:</strong> {{ a.fecha }}</p>
+                    <p><strong>Inscritos:</strong> {{ a.total_inscritos }}</p>
+
+                    <a href="{% url 'inscritos_asesoria' a.id %}" class="btn btn-dark">
+                        Ver inscritos
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

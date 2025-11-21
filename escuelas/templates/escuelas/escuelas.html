@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ titulo }}{% endblock %}
+{% block content %}
+<div class="container my-5">
+
+  <!-- 🔍 Buscador -->
+  <form method="get" action="{% url 'lista_escuelas' %}" class="mb-5">
+    <div class="input-group shadow-sm" style="max-width:600px; margin:auto;">
+      <input type="text" name="q" class="form-control" 
+             placeholder="Buscar por nombre o plantel..." 
+             value="{{ request.GET.q }}" 
+             style="border-radius: 10px 0 0 10px; border: 2px solid #7a0c18;">
+      <button type="submit" class="btn text-white fw-semibold" 
+              style="background-color:#7a0c18; border-radius:0 10px 10px 0;">
+        Buscar
+      </button>
+    </div>
+  </form>
+
+  <!-- 🏫 Cards de Escuelas -->
+  <div class="row g-4">
+    {% for escuela in escuelas %}
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card border-0 shadow-sm h-100" style="border-radius: 12px; overflow:hidden;">
+        <div class="card-header text-white text-center fw-bold" 
+             style="background: linear-gradient(135deg, #56070c, #7a0c18); font-size: 1.2rem;">
+          {{ escuela.nombre }}
+        </div>
+        <div class="card-body bg-light text-center">
+          <p class="mb-1"><strong>Plantel:</strong> {{ escuela.plantel }}</p>
+          <p class="mb-1"><strong>Teléfono:</strong> {{ escuela.telefono }}</p>
+          <p class="mb-3"><strong>Dirección:</strong> {{ escuela.direccion }}</p>
+
+          <a href="{% url 'detalle' escuela.slug %}" 
+             class="btn btn-outline-danger fw-semibold px-4 py-2" 
+             style="border-color:#7a0c18; color:#7a0c18; border-radius:8px;">
+            Ver detalles
+          </a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+      <p class="text-center text-muted mt-5">No hay escuelas registradas o no se encontraron resultados.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

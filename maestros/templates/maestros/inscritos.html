@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h3>Alumnos inscritos en la asesoria "{{ asesoria.nombre }}"</h3>
+    <table class="table table-bordered mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>Alumno</th>
+                <th>Matrícula</th>
+                <th>Grupo</th>
+                <th>Semestre</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for inscripcion in inscritos %}
+            <tr>
+                <td>{{ inscripcion.alumno.nombre }} {{ inscripcion.alumno.apellido_paterno }}</td>
+                <td>{{ inscripcion.alumno.matricula }}</td>
+                <td>{{ inscripcion.alumno.grupo }}</td>
+                <td>{{ inscripcion.alumno.semestre }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center text-muted">Nadie inscrito aún.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {% if inscritos.has_previous %}
+            <a href="?page={{ inscritos.previous_page_number }}" class="btn btn-outline-dark">Anterior</a>
+        {% endif %}
+
+        <span class="mx-2">Página {{ inscritos.number }} de {{ inscritos.paginator.num_pages }}</span>
+
+        {% if inscritos.has_next %}
+            <a href="?page={{ inscritos.next_page_number }}" class="btn btn-outline-dark">Siguiente</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
