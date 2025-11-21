@@ -23,6 +23,37 @@ class CrearCuentaAlumnoForm(UserCreationForm):
         model = User
         fields = ["username", "email", "first_name", "last_name", "password1", "password2", "matricula"]
 
+        widgets={
+            'username':forms.TextInput(attrs={
+                'class':'form-control',
+                'placeholder':'usuario'
+            }),
+            'email':forms.TextInput(attrs={
+                'class':'form-control',
+                'placeholder':'alumno@ejemplo.com'
+            }),
+            'first_name':forms.TextInput(attrs={
+                'class':'form-control',
+                'placeholder':'Nombre(s)'
+            }),  
+            'last_name':forms.TextInput(attrs={
+                'class':'form-control',
+                'placeholder':'Apellido(s)'
+            }),
+            'password1':forms.TextInput(attrs={
+                'class':'form-control',
+                'placeholder':'Ingresa una contraseña'
+            }),
+            'password2':forms.TextInput(attrs={
+                'class':'form-control',
+                'placeholder':'Confirma tu contraseña'
+            }),
+            'matricula':forms.TextInput(attrs={
+                'class':'form-control',
+                'placeholder':'Ingresa tu matricula ej: ABCD1234567890'
+            }),      
+        }
+
     def clean_matricula(self):
         matricula = self.cleaned_data.get("matricula")
         if not Alumno.objects.filter(matricula=matricula).exists():
