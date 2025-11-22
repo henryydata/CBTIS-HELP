@@ -5,10 +5,12 @@ from .forms import AsesoriaForm
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from alumnos.models import Alumno
+from django.utils import timezone
 
 # listar las asesorias 
 def asesorias(request):
-    asesorias = Asesoria.objects.all()
+    hoy = timezone.localdate()
+    asesorias = Asesoria.objects.filter(fecha__gte=hoy).order_by('fecha')
     alumno = request.user.alumno
 
     inscripciones = {
