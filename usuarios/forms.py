@@ -23,55 +23,23 @@ class CrearCuentaAlumnoForm(UserCreationForm):
         model = User
         fields = ["username", "email", "first_name", "last_name", "password1", "password2", "matricula"]
 
-        widgets={
-            'username':forms.TextInput(attrs={
-                'class':'form-control',
-                'placeholder':'usuario'
-            }),
-            'email':forms.TextInput(attrs={
-                'class':'form-control',
-                'placeholder':'alumno@ejemplo.com'
-            }),
-            'first_name':forms.TextInput(attrs={
-                'class':'form-control',
-                'placeholder':'Nombre(s)'
-            }),  
-            'last_name':forms.TextInput(attrs={
-                'class':'form-control',
-                'placeholder':'Apellido(s)'
-            }),
-            'password1':forms.TextInput(attrs={
-                'class':'form-control',
-                'placeholder':'Ingresa una contraseña'
-            }),
-            'password2':forms.TextInput(attrs={
-                'class':'form-control',
-                'placeholder':'Confirma tu contraseña'
-            }),
-            'matricula':forms.TextInput(attrs={
-                'class':'form-control',
-                'placeholder':'Ingresa tu matricula ej: ABCD1234567890'
-            }),      
-        }
+    def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            placeholders = {
+                "username": "Usuario",
+                "email": "alumno@ejemplo.com",
+                "first_name": "Nombre(s)",
+                "last_name": "Apellido(s)",
+                "password1": "Ingresa una contraseña",
+                "password2": "Confirma tu contraseña",
+                "matricula": "Ingresa tu matrícula",
+            }
+            for name, field in self.fields.items():
+                field.widget.attrs.update({
+                    "class": "form-control mb-2",
+                    "placeholder": placeholders.get(name, "")
+                })
 
-    def clean_matricula(self):
-        matricula = self.cleaned_data.get("matricula")
-        if not Alumno.objects.filter(matricula=matricula).exists():
-            raise forms.ValidationError("⚠️ La matrícula no existe.")
-        return matricula
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.first_name = self.cleaned_data["first_name"]
-        user.last_name = self.cleaned_data["last_name"]
-        if commit:
-            user.save()
-        return user
-
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from maestros.models import Maestro
 
 class CrearCuentaMaestroForm(UserCreationForm):
     nombre = forms.CharField(max_length=100, label="Nombre")
