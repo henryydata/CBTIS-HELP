@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de inscripción</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f4f6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            background: #ffffff;
+            max-width: 600px;
+            margin: 35px auto;
+            padding: 25px;
+            border-radius: 10px;
+            border-top: 10px solid #56070c;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            color: #56070c;
+            margin-bottom: 10px;
+            font-size: 26px;
+            text-align: center;
+        }
+
+        p {
+            color: #444;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .info-box {
+            background-color: #fbeaec;
+            padding: 15px;
+            border-left: 5px solid #56070c;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #56070c;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 25px;
+            font-size: 13px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Inscripción Confirmada</h1>
+
+        <p>Hola <strong>{{ alumno.nombre }}</strong>,</p>
+
+        <p>
+            Tu inscripción a la asesoría ha sido registrada exitosamente.  
+            Aquí tienes los detalles:
+        </p>
+
+        <div class="info-box">
+            <p><strong>📘 Asesoría:</strong> {{ asesoria.nombre }}</p>
+            <p><strong>📅 Fecha:</strong> {{ asesoria.fecha|date:"d/m/Y H:i" }}</p>
+            <p><strong>👨‍🏫 Maestro:</strong> {{ asesoria.maestro }}</p>
+            <p><strong>🏫 Escuela:</strong> {{ asesoria.escuela }}</p>
+            <p><strong>📚 Asignatura:</strong> {{ asesoria.asignatura }}</p>
+        </div>
+
+        <p>Si necesitas cancelar tu inscripción, puedes hacerlo desde tu panel de asesorías.</p>
+
+        <a href="#" class="btn">Ir a mis asesorías</a>
+
+        <p class="footer">
+            Este es un correo automático, por favor no respondas a este mensaje.
+        </p>
+
+    </div>
+    <footer>
+        <div class="footer">
+            &copy; {{ year }} CBTis Help Todos los derechos reservados.
+        </div>
+    </footer>
+</body>
+</html>

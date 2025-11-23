@@ -4,8 +4,11 @@ from .models import Asesoria, InscripcionAsesoria
 from .forms import AsesoriaForm
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
-from alumnos.models import Alumno
 from django.utils import timezone
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+import threading
 
 # listar las asesorias 
 def asesorias(request):
@@ -92,9 +95,34 @@ def toggle_inscripcion(request, id):
 
     mensaje = "Inscripción realizada exitosamente" if ins.estado else "Inscripción cancelada"
 
-    return JsonResponse({
+    data={
         "estado": "inscrito" if ins.estado else "cancelado",
         "cupos_restantes": asesoria.cupos_restantes,
         "mensaje": mensaje,
-    })
+    }
 
+    if ins.estado:
+        hilo = threading.Thread(target=enviar_correo, args=(alumno, asesoria))
+        hilo.start()
+
+    return JsonResponse(data)
+
+def enviar_correo(alumno, asesoria):
+    try:
+        html = render_to_string("emails/correo_inscripcion.html", {
+            "alumno": alumno,
+            "asesoria": asesoria
+        })
+
+        correo = EmailMessage(
+            subject="Confirmación de inscripción",
+            body=html,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[alumno.user.email],
+        )
+
+        correo.content_subtype = "html"
+        correo.send(fail_silently=False)
+
+    except Exception as e:
+        print("ERROR AL ENVIAR CORREO:", e)
