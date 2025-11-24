@@ -51,7 +51,16 @@ def registro_alumno(request):
     if request.method == "POST":
         form = CrearCuentaAlumnoForm(request.POST)
         if form.is_valid():
-            form.save()
+            user=form.save()
+            matricula=form.cleaned_data['matricula']
+            try:
+                alumno=Alumno.objects.get(matricula=matricula)
+            except Alumno.DoesNotExist:
+                messages.error(request, "⚠️ La matrícula no está registrada.")
+                return render(request, "usuarios/registro_alumno.html", {"form": form})
+            alumno.user=user
+            alumno.save()
+            messages.succes(request, "Cuenta creada")
             return redirect("login")
     else:
         form = CrearCuentaAlumnoForm()
