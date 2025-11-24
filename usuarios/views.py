@@ -61,7 +61,8 @@ def registro_alumno(request):
             alumno.user=user
             alumno.save()
             messages.succes(request, "Cuenta creada")
-            return redirect("login")
+            login(request, user)
+            return redirect("index")
     else:
         form = CrearCuentaAlumnoForm()
     return render(request, "usuarios/registro_alumno.html", {"form": form})
