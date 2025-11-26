@@ -5,6 +5,7 @@ class AlumnoForm(forms.ModelForm):
     class Meta:
         model = Alumno
         fields = [
+            'user',
             'nombre',
             'apellido_paterno',
             'apellido_materno',
@@ -17,6 +18,9 @@ class AlumnoForm(forms.ModelForm):
         ]
 
         widgets = {
+            'user': forms.Select(attrs={
+                'class':'form-control'
+            }),
             'nombre': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Nombre(s)',
