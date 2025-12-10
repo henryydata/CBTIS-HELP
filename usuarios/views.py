@@ -85,9 +85,16 @@ def registro_maestro(request):
 def perfil_usuario(request,username):
     usuario=get_object_or_404(User, username=username)
     alumno=Alumno.objects.filter(user=usuario)
+
+    is_owner = request.user == usuario
+    is_student = hasattr(request.user, 'alumno')
+    is_teacher = hasattr(request.user, 'maestro')
     data={
         'titulo':'Perfil',
         'usuario':usuario,
-        'alumno':alumno
+        'alumno':alumno,
+        'is_student': is_student,
+        'is_teacher': is_teacher,
+        'is_owner': is_owner
     }
     return render(request,'usuarios/usuario.html', data)
