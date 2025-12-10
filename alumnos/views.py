@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import AlumnoForm
 from .models import Alumno
+from asesorias.models import Asesoria, InscripcionAsesoria
 from django.contrib.auth.decorators import login_required
 
 # lista los alumnos para una vista general para todos
@@ -60,3 +61,12 @@ def eliminar_alumno(request, id):
     alumno.delete()
     messages.success(request, 'Eliminado exitosamente')
     return redirect(to='listar_alumno')
+
+def dashboard(request):
+    alumno=Alumno.objects.get(user=request.user)
+    asesoria=InscripcionAsesoria.objects.filter(alumno=alumno)
+    data={
+        'alumno': alumno,
+        'asesorias': asesoria
+    }
+    return render(request, 'alumnos/dashboard.html', data)
