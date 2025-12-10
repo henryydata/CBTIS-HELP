@@ -1,26 +1,75 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container mt-4">
-
-    <h2>Mis asesorías</h2>
-    <div class="row mt-4">
-
-    {% for a in asesorias %}
-        <div class="col-md-4">
-            <div class="card shadow-sm mb-4">
-                <div class="card-body">
-                    <h5>{{ a.nombre }}</h5>
-                    <p><strong>Fecha:</strong> {{ a.fecha }}</p>
-                    <p><strong>Inscritos:</strong> {{ a.total_inscritos }}</p>
-
-                    <a href="{% url 'inscritos_asesoria' a.id %}" class="btn btn-dark">
-                        Ver inscritos
-                    </a>
-                </div>
+<div class="container dashboard-section">
+    <h2 class="title-main">Panel del maestro</h2>
+    <p class="subtitle">Bienvenido {{ maestro.nombre }} {{maestro.apellido_paterno}} {{maestro.apellido_materno}}</p>
+    <div class="divider"></div>
+    <div class="info-card">
+        <h3>Mi información personal</h3>
+        <div class="info-row">
+            <div class="info-box">
+                <label>Nombre completo</label>
+                <span>{{ user.first_name }} {{ user.last_name }}</span>
+            </div>
+            <div class="info-box">
+                <label>Usuario</label>
+                <span>@{{ user.username }}</span>
+            </div>
+            <div class="info-box">
+                <label>Correo electrónico</label>
+                <span>{{ user.email }}</span>
+            </div>
+            <div class="info-box">
+                <label>Fecha de registro</label>
+                <span>{{ user.date_joined|date:"d/m/Y" }}</span>
             </div>
         </div>
-    {% endfor %}
-
+    </div>
+    <div class="info-card">
+        <h3>Estado laboral</h3>
+        <div class="info-row">
+            <div class="info-box">
+                <label>Escuela</label>
+                <span>{{ maestro.escuela }}</span>
+            </div>
+            <div class="info-box">
+                <label>Asignatura</label>
+                <span>{{ maestro.asignatura }}</span>
+            </div>
+            <div class="info-box">
+                <label>Grupo</label>
+                <span>{{ alumno.grupo }}</span>
+            </div>
+            <div class="info-box">
+                <label>Especialidad</label>
+                <span>{{ alumno.especialidad }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="info-card">
+        <h3>Mis asesorías</h3>
+        {% if asesorias %}
+            <div class="asesorias-grid">
+                {% for a in asesorias %}
+                    <div class="asesoria-card">
+                    <h4>{{ a.nombre }}</h4>
+                    <div class="asesoria-info">
+                        <p><strong>Fecha:</strong> {{ a.fecha }}</p>
+                        <p><strong>Asignatura:</strong> {{ a.asignatura }}</p>
+                        <p><strong>Categoria:</strong> {{ a.categoria }}</p>
+                        <p><strong>Escuela:</strong> {{ a.escuela }}</p>
+                        <p><strong>Cupo:</strong> {{ a.cupo }}</p>
+                        <p><strong>Inscritos:</strong> {{ a.total_inscritos }}</p>
+                    </div>
+                    <a href="{% url 'inscritos_asesoria' a.id %}" class="btn-view">
+                        Ver inscritos
+                    </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No has creado ninguna asesoría.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

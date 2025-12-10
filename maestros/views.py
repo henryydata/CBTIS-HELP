@@ -72,6 +72,7 @@ def dashboard_maestro(request):
         a.total_inscritos = InscripcionAsesoria.objects.filter(asesoria=a).count()
     data={
         'titulo':'Dashboard Maestro',
+        'maestro': maestro,
         'asesorias': asesorias
     }
     return render(request, "maestros/dashboard.html", data)

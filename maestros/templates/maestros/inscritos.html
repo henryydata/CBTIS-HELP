@@ -2,6 +2,9 @@
 {% block content %}
 <div class="container mt-4">
     <h3>Alumnos inscritos en la asesoria "{{ asesoria.nombre }}"</h3>
+    <div class="d-grid gap-2">
+        <button onclick="ExportTable()" class="btn btn-dark">Exportar</button>
+    </div>
     <table class="table table-bordered mt-3" id="asesorias">
         <thead class="table-dark">
             <tr>
@@ -39,7 +42,6 @@
             <a href="?page={{ inscritos.next_page_number }}" class="btn btn-outline-dark">Siguiente</a>
         {% endif %}
     </div>
-    <button onclick="ExportTable()" class="btn btn-info">Exportar</button>
 </div>
 <script>
     function ExportTable() {
