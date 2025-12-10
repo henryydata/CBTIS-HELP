@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container mt-4">
     <h3>Alumnos inscritos en la asesoria "{{ asesoria.nombre }}"</h3>
-    <table class="table table-bordered mt-3">
+    <table class="table table-bordered mt-3" id="asesorias">
         <thead class="table-dark">
             <tr>
                 <th>Alumno</th>
@@ -39,5 +39,27 @@
             <a href="?page={{ inscritos.next_page_number }}" class="btn btn-outline-dark">Siguiente</a>
         {% endif %}
     </div>
+    <button onclick="ExportTable()" class="btn btn-info">Exportar</button>
 </div>
+<script>
+    function ExportTable() {
+        const tabla=document.getElementById("asesorias");
+        const datos=[];
+        const filas=tabla.rows;
+        for (let i=0; i < filas.length; i++) {
+            const fila=[];
+            const celdas=filas[i].cells;
+            for (let j=0; j < celdas.length; j++){
+                fila.push(celdas[j].innerText);
+            }
+            datos.push(fila.join(","));
+        } 
+        const csvContent = "data:text/csv;charset=utf-8," + datos.join("\n");
+        const enlace = document.createElement("a");
+        enlace.setAttribute("href", encodeURI(csvContent));
+        enlace.setAttribute("download", "inscritos.csv");
+        document.body.appendChild(enlace);
+        enlace.click();
+    }
+</script>
 {% endblock %}
