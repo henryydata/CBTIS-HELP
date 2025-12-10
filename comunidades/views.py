@@ -87,7 +87,7 @@ def nuevo_post(request, slug):
             publicacion.autor = request.user
             publicacion.comunidad = comunidad
             publicacion.save()
-            messages.success(request, 'Publicación creada correctamente')
+            messages.success(request, 'Publicado!')
             return redirect('ver_comunidad', slug=comunidad.slug)
         else:
             messages.error(request, 'Error al crear la publicación')
