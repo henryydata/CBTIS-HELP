@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from comunidades.models import Comunidad
 from escuelas.models import Escuela
+from alumnos.models import Alumno
+from maestros.models import Maestro
+from asesorias.models import Asesoria, InscripcionAsesoria
+
 
 def index(request):
     bienvenido = request.session.pop('bienvenido', None)
@@ -12,3 +16,20 @@ def index(request):
         'bienvenido':bienvenido
     }
     return render(request, 'index.html', data)
+
+def dashboard(request):
+    alumnos=Alumno.objects.count()
+    maestros=Maestro.objects.count()
+    asesorias_activas=InscripcionAsesoria.objects.filter(estado=True).count
+    inscripciones=InscripcionAsesoria.objects.count()
+    ultimas_inscripciones=Asesoria.objects.order_by('-fecha')[:10]
+
+    data = {
+    "total_alumnos": alumnos,
+    "total_maestros": maestros,
+    "total_asesorias_activas": asesorias_activas,
+    "total_inscripciones": inscripciones,
+    "ultimas_inscripciones": ultimas_inscripciones,
+}
+
+    return render(request, 'admin/dashboard.html', data)

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+<div class="admin-container">
+    <aside class="admin-sidebar">
+        <h3 class="sidebar-title">ADMIN</h3>
+        <a href="{% url 'dashboard' %}" class="sidebar-link active">Dashboard</a>
+        <a href="#" class="sidebar-link">Alumnos</a>
+        <a href="#" class="sidebar-link">Maestros</a>
+        <a href="#" class="sidebar-link">Asesorías</a>
+        <a href="#" class="sidebar-link">Estadísticas</a>
+        <a href="#" class="sidebar-link">Configuración</a>
+    </aside>
+    <main class="admin-main">
+        <div class="admin-header">
+            <h2>Dashboard Administrador</h2>
+            <div class="header-right">
+                <input type="text" placeholder="Buscar..." class="admin-search">
+                <span class="admin-user">{{ request.user.username }}</span>
+            </div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h4>Alumnos registrados</h4>
+                <p>{{ total_alumnos }}</p>
+            </div>
+            <div class="stat-card">
+                <h4>Maestros registrados</h4>
+                <p>{{ total_maestros }}</p>
+            </div>
+            <div class="stat-card">
+                <h4>Asesorías activas</h4>
+                <p>{{ total_asesorias_activas }}</p>
+            </div>
+            <div class="stat-card">
+                <h4>Inscripciones totales</h4>
+                <p>{{ total_inscripciones }}</p>
+            </div>
+
+        </div>
+        <div class="info-card">
+            <h3>Últimas inscripciones</h3>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Alumno</th>
+                        <th>Asesoría</th>
+                        <th>Fecha</th>
+                        <th>Profesor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in ultimas_inscripciones %}
+                    <tr>
+                        <td>{{ i.asesoria.alumno.nombre }}</td>
+                        <td>{{ i.asesoria.nombre }}</td>
+                        <td>{{ i.fecha|date:"d/m/Y" }}</td>
+                        <td>{{ i.asesoria.profesor }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="quick-actions">
+            <a href="{% url 'agregar_asesoria' %}" class="quick-btn">Crear asesoría</a>
+            <a href="{% url 'listar_alumno' %}" class="quick-btn">Ver alumnos</a>
+            <a href="{% url 'listar_maestro' %}" class="quick-btn">Ver maestros</a>
+        </div>
+    </main>
+</div>
+{% endblock %}

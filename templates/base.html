@@ -63,7 +63,9 @@
         </div>
 
         {% if user.is_superuser %}
-        <!-- Dropdown Admin -->
+        <a href="{% url 'dashboard' %}" class="block py-2 text-white hover:text-yellow-300 transition-colors">
+            dashboard
+        </a>
         <div class="relative">
             <button onclick="toggleDropdown('general-menu')" class="flex justify-center md:justify-start items-center w-full py-2 text-white hover:text-yellow-300 focus:outline-none">
             General
