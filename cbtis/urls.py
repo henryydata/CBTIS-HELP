@@ -29,6 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'), 
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('buscar/', views.buscar, name='buscar'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('alumnos/', include('alumnos.urls')),
     path('escuelas/', include('escuelas.urls')),

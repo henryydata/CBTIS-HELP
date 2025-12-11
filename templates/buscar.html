@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content py-10">
+    <h2 class="text-2xl font-bold text-[#56070c] mb-4">
+        Resultados para: "{{ query }}"
+    </h2>
+
+    {% if not alumnos and not maestros and not publicaciones %}
+        <p class="text-gray-500">No se encontraron resultados.</p>
+    {% endif %}
+
+    {% if alumnos %}
+    <h3 class="font-semibold text-lg text-[#56070c] mt-6">Alumnos</h3>
+    <div class="grid gap-3 mt-2">
+        {% for a in alumnos %}
+        <div class="bg-white p-4 rounded-xl border shadow">
+            {{ a.nombre }} {{ a.apellido_paterno }} {{ a.apellido_materno }} {{ a.especialidad }} <a href="{%url 'perfil_usuario' a.user.username %}">{{a.user.username}}</a> 
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if maestros %}
+    <h3 class="font-semibold text-lg text-[#56070c] mt-6">Maestros</h3>
+    <div class="grid gap-3 mt-2">
+        {% for m in maestros %}
+        <div class="bg-white p-4 rounded-xl border shadow">
+            {{ m.nombre }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if publicaciones %}
+    <h3 class="font-semibold text-lg text-[#56070c] mt-6">Publicaciones</h3>
+    <div class="grid gap-3 mt-2">
+        {% for p in publicaciones %}
+        <div class="bg-white p-4 rounded-xl border shadow">
+            {{ p.titulo }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

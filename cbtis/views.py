@@ -33,3 +33,16 @@ def dashboard(request):
 }
 
     return render(request, 'admin/dashboard.html', data)
+
+def buscar(request):
+    query=request.GET.get('q','')
+    alumnos=Alumno.objects.filter(nombre__icontains=query)
+    maestros=Maestro.objects.filter(nombre__icontains=query)
+    asesorias=Asesoria.objects.filter(nombre__icontains=query)
+    data={
+        'alumnos':alumnos,
+        'maestros':maestros,
+        'asesorias':asesorias,
+        'query':query
+    }
+    return render(request, 'buscar.html', data)

@@ -102,7 +102,13 @@
             </div>
         </div>
         {% endif %}
-
+        <form action="{% url 'buscar' %}" method="GET" class="flex">
+            <input type="text" name="q" placeholder="Buscar..."
+                class="px-3 py-1 rounded-l-lg border border-gray-300 focus:outline-none">
+            <button class="bg-[#56070c] text-white px-3 rounded-r-lg">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
         <a href="{% url 'logout' %}" class="block py-2 text-white hover:text-yellow-300 transition-colors"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             Cerrar sesión
