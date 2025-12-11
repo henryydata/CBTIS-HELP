@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Asesoria, InscripcionAsesoria
 from .forms import AsesoriaForm
+from maestros.models import Maestro
+from asignaturas.models import Asignatura
+from categorias.models import Categoria
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.utils import timezone
@@ -9,24 +12,49 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
 import threading
+from django.db.models import Q
 
-# listar las asesorias 
 def asesorias(request):
     hoy = timezone.localdate()
+    maestro = request.GET.get("maestro")
+    asignatura = request.GET.get("asignatura")
+    categoria = request.GET.get("categoria")
+    estado = request.GET.get("estado")
     asesorias = Asesoria.objects.filter(fecha__gte=hoy).order_by('fecha')
+    if maestro:
+        asesorias = asesorias.filter(maestro_id=maestro)
+
+    if asignatura:
+        asesorias = asesorias.filter(asignatura_id=asignatura)
+
+    if categoria:
+        asesorias = asesorias.filter(categoria_id=categoria)
+
+    if estado == "1":
+        asesorias = asesorias.filter(inscripcionasesoria__estado=True).distinct()
+
+    elif estado == "0":
+        asesorias = asesorias.exclude(inscripcionasesoria__estado=True).distinct()
+
     alumno = request.user.alumno
 
     inscripciones = {
-        i.asesoria.id: i.estado
+        i.asesoria_id: i.estado
         for i in InscripcionAsesoria.objects.filter(alumno=alumno)
     }
 
-    return render(request, "asesorias/asesorias.html", {
+    context = {
         "asesorias": asesorias,
         "inscripciones": inscripciones,
-    })
+        "maestros": Maestro.objects.all(),
+        "asignaturas": Asignatura.objects.all(),
+        "categorias": Categoria.objects.filter(tipo='Asesoria'),
+        "request": request, 
+    }
 
-# lisatar las asesorias en una tabla con los botones eliminar y modificar 
+    return render(request, "asesorias/asesorias.html", context)
+
+# listar las asesorias en una tabla con los botones eliminar y modificar 
 def listar(request):
     asesorias=Asesoria.objects.all()
     data={

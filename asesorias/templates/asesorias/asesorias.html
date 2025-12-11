@@ -8,6 +8,51 @@
   <h2 class="text-center mb-4">Asesorías disponibles</h2>
 
   <div class="row g-4">
+    <form method="GET" action="" class="grid grid-cols-4 gap-3 mb-4">
+
+        <select name="maestro" class="p-2 border rounded-lg">
+            <option value="">Maestro</option>
+            {% for m in maestros %}
+                <option value="{{ m.id }}" {% if request.GET.maestro == m.id|stringformat:"s" %}selected{% endif %}>
+                    {{ m.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="asignatura" class="p-2 border rounded-lg">
+            <option value="">Asignatura</option>
+            {% for a in asignaturas %}
+                <option value="{{ a.id }}" {% if request.GET.asignatura == a.id|stringformat:"s" %}selected{% endif %}>
+                    {{ a.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="categoria" class="form-select">
+            <option value="">Todas las categorías</option>
+
+            {% for c in categorias %}
+                <option value="{{ c.id }}" {% if request.GET.categoria == c.id|stringformat:"s" %}selected{% endif %}>
+                    {{ c.categoria }}   <!-- usa el __str__ -->
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="estado" class="p-2 border rounded-lg">
+            <option value="">Estado</option>
+            <option value="1" {% if request.GET.estado == "1" %}selected{% endif %}>Inscrito</option>
+            <option value="0" {% if request.GET.estado == "0" %}selected{% endif %}>No inscrito</option>
+        </select>
+
+        <button class="bg-[#56070c] text-white p-2 rounded-lg col-span-4">
+            Filtrar
+        </button>
+        <a href="{% url 'asesorias' %}" 
+          class="btn btn-light p-2 rounded-lg text-center col-span-4">
+            Limpiar filtros
+        </a>
+    </form>
+
     {% for asesoria in asesorias %}
 
       {% with inscrito=inscripciones|dictget:asesoria.id %}
@@ -30,7 +75,7 @@
               <p><strong>Escuela:</strong> {{ asesoria.escuela }}</p>
             {% endif %}
 
-            <p><strong>Categoría:</strong> {{ asesoria.categoria }}</p>
+            <p><strong>Categoría:</strong> {{ asesoria.categoria.categoria }}</p>
 
             <!-- Cupos -->
             <p id="cupo-{{ asesoria.id }}">
