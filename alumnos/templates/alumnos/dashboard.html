@@ -1,9 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container dashboard-section">
-    <h2 class="title-main">Panel del Alumno</h2>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="title-main">Panel del Alumno</h2>
+        <a href="{% url 'editar_perfil' %}" class="btn btn-edit-profile">
+            Editar perfil
+        </a>
+    </div>
+
     <p class="subtitle">Bienvenido {{ alumno.nombre_completo }}</p>
+
     <div class="divider"></div>
+
     <div class="info-card">
         <h3>Mi información personal</h3>
         <div class="info-row">
@@ -25,6 +34,7 @@
             </div>
         </div>
     </div>
+
     <div class="info-card">
         <h3>Estado académico</h3>
         <div class="info-row">
@@ -46,6 +56,7 @@
             </div>
         </div>
     </div>
+
     <div class="info-card">
         <h3>Mis asesorías</h3>
         {% if asesorias %}
@@ -63,5 +74,6 @@
             <p>No estás inscrito en ninguna asesoría.</p>
         {% endif %}
     </div>
+
 </div>
 {% endblock %}
