@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 from alumnos.models import Alumno
 from maestros.models import Maestro
 from comunidades.models import Comunidad
-from .forms import RegistroForm, CrearCuentaAlumnoForm, CrearCuentaMaestroForm
+from .models import Profile
+from .forms import RegistroForm, CrearCuentaAlumnoForm, CrearCuentaMaestroForm, UserForm, ProfileForm
 
 # registro de usuario 
 def registro_usuario(request, perfil_id, tipo):
@@ -56,7 +57,7 @@ def registro_alumno(request):
             try:
                 alumno=Alumno.objects.get(matricula=matricula)
             except Alumno.DoesNotExist:
-                messages.error(request, "⚠️ La matrícula no está registrada.")
+                messages.error(request, "La matrícula no está registrada.")
                 return render(request, "usuarios/registro_alumno.html", {"form": form})
             alumno.user=user
             alumno.save()
@@ -85,6 +86,7 @@ def registro_maestro(request):
 def perfil_usuario(request,username):
     usuario=get_object_or_404(User, username=username)
     alumno=Alumno.objects.filter(user=usuario)
+    profile=Profile.objects.get(user=usuario)
 
     is_owner = request.user == usuario
     is_student = hasattr(request.user, 'alumno')
@@ -93,8 +95,31 @@ def perfil_usuario(request,username):
         'titulo':'Perfil',
         'usuario':usuario,
         'alumno':alumno,
+        'profile':profile,
         'is_student': is_student,
         'is_teacher': is_teacher,
         'is_owner': is_owner
     }
     return render(request,'usuarios/usuario.html', data)
+
+def editar_perfil(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        user_form=UserForm(request.POST, instance=request.user)
+        profile_form=ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Perfil actualizado')
+            return redirect('dashboard_alumno')
+        else:
+            messages.error(request, 'Error al actualizar el perfil')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    data = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+    }
+    return render(request, 'usuarios\perfil_edit.html', data)

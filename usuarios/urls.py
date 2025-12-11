@@ -8,5 +8,6 @@ urlpatterns = [
     path('create_account/', auth_views.LoginView.as_view(template_name='usuarios/create_account.html'), name='create_account'),
     path("registro_alumno/", views.registro_alumno, name="registro_alumno"),
     path('registro_maestro/', views.registro_maestro, name='registro_maestro'),
-    path('<str:username>/', views.perfil_usuario, name='perfil_usuario')
+    path('editar_perfil/', views.editar_perfil, name='editar_perfil'),
+    path('<str:username>/', views.perfil_usuario, name='perfil_usuario'),
 ]

@@ -5,6 +5,30 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from alumnos.models import Alumno
 from maestros.models import Maestro
+from .models import Profile
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email', 'first_name', 'last_name']
+
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['foto', 'banner', 'biografia', 'telefono']
+
+        widgets = {
+            'foto': forms.FileInput(attrs={'class': 'form-control'}),
+            'banner': forms.FileInput(attrs={'class': 'form-control'}),
+            'biografia': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'telefono': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
 class RegistroForm(forms.ModelForm):
     username = forms.CharField(max_length=150)

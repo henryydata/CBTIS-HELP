@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Editar Perfil{% endblock %}
+{% block content %}
+{% load static %}
+{% load form_filters %}
+<link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+
+<div class="edit-container">
+
+    <div class="edit-header">
+        <h2>Editar Perfil</h2>
+        <p>Actualiza tu información personal y de cuenta</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="edit-form">
+        {% csrf_token %}
+
+        <div class="section-card">
+            <h3>Información de cuenta</h3>
+            <div class="form-grid">
+                {% for field in user_form %}
+                    <div class="form-group">
+                        <label>{{ field.label }}</label>
+                        {{ field|add_class:"form-control-field" }}
+                        {% if field.errors %}
+                            <small class="error-text">{{ field.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- INFO EXTRA -->
+        <div class="section-card">
+            <h3>Datos adicionales</h3>
+
+            <!-- PREVIEW FOTO + BANNER -->
+            <div class="media-preview">
+                {% if profile_form.instance.banner %}
+                    <img src="{{ profile_form.instance.banner.url }}" class="banner-preview">
+                {% else %}
+                    <div class="banner-placeholder">Sin banner</div>
+                {% endif %}
+
+                {% if profile_form.instance.foto %}
+                    <img src="{{ profile_form.instance.foto.url }}" class="foto-preview">
+                {% else %}
+                    <div class="foto-placeholder">Sin foto</div>
+                {% endif %}
+            </div>
+
+            <div class="form-grid">
+                {% for field in profile_form %}
+                    <div class="form-group">
+                        <label>{{ field.label }}</label>
+                        {{ field|add_class:"form-control-field" }}
+                        {% if field.errors %}
+                            <small class="error-text">{{ field.errors|striptags }}</small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button class="btn-save" type="submit">Guardar cambios</button>
+    </form>
+</div>
+{% if messages %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    {% for message in messages %}
+        Swal.fire({
+            icon: '{% if message.tags == "success" %}success{% elif message.tags == "error" %}error{% else %}info{% endif %}',
+            title: '{{ message|escapejs }}',
+            timer: 2500,
+            timerProgressBar: true,
+            showConfirmButton: false
+        });
+    {% endfor %}
+</script>
+{% endif %}
+{% endblock %}
