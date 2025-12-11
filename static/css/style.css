@@ -164,6 +164,22 @@ footer a:hover {
     background: #333;
 }
 
+.btn-edit-profile {
+    background-color: #7a0c0c; /* rojo institucional */
+    color: white;
+    padding: 8px 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-edit-profile:hover {
+    background-color: #8a0000;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+
 /* Animación */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
